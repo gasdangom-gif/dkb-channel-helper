@@ -3,267 +3,342 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DKB Channel Request Helper</title>
+  <title>DKB STATIONHEAD Channel Request Helper</title>
   <style>
     :root {
-      --pink: #f5a6bf;
-      --dark: #2b2b2b;
-      --white: #ffffff;
-      --soft: #fff5f9;
-      --border: #f0b6c9;
+      --bg: #f7fbff;
+      --card: #ffffff;
+      --main: #3b82f6;
+      --main-dark: #2563eb;
+      --accent: #7c3aed;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #dbeafe;
+      --success: #10b981;
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(180deg, #fff5f9 0%, #ffffff 100%);
-      color: var(--dark);
-      line-height: 1.7;
-    }
-
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
     }
 
     header {
+      padding: 28px 18px 18px;
       text-align: center;
-      padding: 28px 16px;
-      background: var(--pink);
-      border-radius: 24px;
-      color: var(--white);
-      box-shadow: 0 8px 20px rgba(245, 166, 191, 0.35);
     }
 
     h1 {
-      margin: 0;
-      font-size: 28px;
-      line-height: 1.3;
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.25;
     }
 
     .subtitle {
-      margin-top: 10px;
-      font-weight: 600;
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    .card {
-      background: var(--white);
-      border: 2px solid var(--border);
-      border-radius: 20px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    .wrap {
+      width: min(920px, 100%);
+      margin: 0 auto;
+      padding: 0 16px 40px;
     }
 
-    h2 {
-      margin-top: 0;
-      font-size: 20px;
-      color: #d95c88;
+    .lang-switch {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px 0;
     }
 
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 14px 0 6px;
-    }
-
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      font-size: 16px;
-    }
-
-    button, a.button {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      margin-top: 12px;
-      padding: 14px 16px;
-      border: none;
+    .lang-switch button,
+    .open-form,
+    .copy-btn {
+      border: 0;
       border-radius: 999px;
-      background: var(--pink);
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-      text-align: center;
-      text-decoration: none;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(245, 166, 191, 0.45);
-    }
-
-    button.secondary {
-      background: #333;
-      box-shadow: none;
-    }
-
-    button:active, a.button:active {
-      transform: translateY(1px);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 110px;
-      box-sizing: border-box;
-      padding: 12px;
-      margin-top: 10px;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      font-size: 14px;
-      background: #fffafa;
-    }
-
-    .small {
-      font-size: 13px;
-      color: #666;
-    }
-
-    .notice {
-      display: none;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: #fff0f6;
-      color: #c04d78;
       font-weight: 700;
-      text-align: center;
+      transition: transform .08s ease, opacity .15s ease, background .15s ease;
     }
 
-    .step {
-      font-weight: 800;
-      color: #d95c88;
+    button:active { transform: scale(.98); }
+
+    .lang-switch button {
+      padding: 10px 16px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .lang-switch button.active {
+      background: var(--main);
+      color: white;
+    }
+
+    .hero-card, .section {
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, .08);
+    }
+
+    .hero-card {
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .steps {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    .open-form {
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 14px;
+      padding: 13px 18px;
+      background: var(--accent);
+      color: white;
+    }
+
+    .section {
+      padding: 18px;
+      margin: 16px 0;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+    }
+
+    .copy-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fbfdff;
+      margin: 10px 0;
+    }
+
+    .label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 15px;
+    }
+
+    .copy-btn {
+      padding: 10px 13px;
+      background: var(--main);
+      color: #fff;
+      min-width: 84px;
+    }
+
+    .copy-btn.copied {
+      background: var(--success);
+    }
+
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+    }
+
+    .account-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+
+    .account-name {
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
     }
 
     footer {
-      margin-top: 28px;
       text-align: center;
+      color: var(--muted);
       font-size: 12px;
-      color: #777;
+      padding: 10px 0 30px;
     }
 
-    .color-chip {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--pink);
-      vertical-align: middle;
-      margin-right: 6px;
-      border: 1px solid #ddd;
+    [data-lang] { display: none; }
+    [data-lang].show { display: block; }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 22px; }
+      .copy-item { grid-template-columns: 1fr; }
+      .copy-btn { width: 100%; }
+      .account-card { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>DKB Channel Request Helper</h1>
-      <div class="subtitle">BBのStationhead申請をかんたんに🩷</div>
-    </header>
+  <header>
+    <h1>DKB STATIONHEAD<br>Channel Request Helper</h1>
+    <p class="subtitle" id="topSubtitle">申請フォームに貼り付ける内容をワンタップでコピーできます。</p>
+  </header>
 
-    <section class="card">
+  <main class="wrap">
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" id="jaBtn" class="active" onclick="setLang('ja')">日本語</button>
+      <button type="button" id="enBtn" onclick="setLang('en')">English</button>
+    </div>
+
+    <section class="hero-card" data-lang="ja">
       <h2>使い方</h2>
-      <p><span class="step">①</span> Request Channelを開く</p>
-      <p><span class="step">②</span> 下のボタンで必要項目をコピーして貼り付け</p>
-      <p><span class="step">③</span> Stations一覧は1人ずつコピーして、フォームで「＋Add」を押してください。</p>
-      <p class="small">※ Stationhead HandleとEmailはフォーム上でご自身のものを入力してください。</p>
+      <ol class="steps">
+        <li>下の「申請フォームを開く」を押します。</li>
+        <li>このページに戻って、必要な項目をコピーします。</li>
+        <li>Stationheadの申請フォームに貼り付けて送信してください。</li>
+      </ol>
+      <a class="open-form" href="https://www.stationhead.com/p/request-channel" target="_blank" rel="noopener">申請フォームを開く</a>
+      <p class="note">※自分のアカウント名・メールアドレスなど、個人情報は各自で入力してください。</p>
     </section>
 
-    
-
-    <section class="card">
-      <h2>申請ページ</h2>
-      <a class="button" href="https://www.stationhead.com/p/request-channel" target="_blank" rel="noopener">
-        Request Channelを開く
-      </a>
-      <p class="small">別タブでStationheadの申請フォームが開きます。</p>
+    <section class="hero-card" data-lang="en">
+      <h2>How to use</h2>
+      <ol class="steps">
+        <li>Tap “Open request form” below.</li>
+        <li>Come back to this page and copy the needed items.</li>
+        <li>Paste them into the Stationhead request form and submit.</li>
+      </ol>
+      <a class="open-form" href="https://www.stationhead.com/p/request-channel" target="_blank" rel="noopener">Open request form</a>
+      <p class="note">Please enter your own account name, email address, and personal information yourself.</p>
     </section>
 
-    <section class="card">
-      <h2>コピー用項目</h2>
-
-      <button onclick="copyText('BB', 'Fandom「BB」をコピーしました！')">1. Fandomをコピー</button>
-
-      <button onclick="copyText('DKB', 'Artist or Topic「DKB」をコピーしました！')">2. Artist or Topicをコピー</button>
-
-      <button onclick="copyText(whyText, 'Whyの文章をコピーしました！')">3. Whyをコピー</button>
-      <textarea readonly>We want to create a central hub for BBs to support DKB more effectively. Currently, several fan stations are operating individually across the globe, but a custom channel will allow us to unite our global fandom and organize 24/7 streaming parties.
-Our goal is to boost DKB's presence on digital charts like Spotify and Apple Music by providing a seamless, round-the-clock listening experience for all fans.
-The DKB fandom is known as BB. Our logo typically features bold, white Gothic-style text set on a pink（HEX color code: #f5a6bf ）background.</textarea>
-
-
-      <button onclick="copyText(playlistLink, 'Spotify Playlist Linkをコピーしました！')">4. Playlist Linkをコピー</button>
-      <textarea readonly>https://open.spotify.com/playlist/2zLywSPYqGBvmuJ3zT3oG5?si=5cb6cdbce1db4904</textarea>
-      <h3>5. Stations一覧</h3>
-      <p class="small">※1人ずつコピーして、フォームで「＋Add」を押してください。</p>
-      <button onclick="copyText('dkbstreaming', 'dkbstreamingをコピーしました！')">dkbstreaming をコピー</button>
-      <button onclick="copyText('cheljpdkb', 'cheljpdkbをコピーしました！')">cheljpdkb をコピー</button>
-      <button onclick="copyText('kamariharry', 'kamariharryをコピーしました！')">kamariharry をコピー</button>
-      <button onclick="copyText('tiggerlilyz', 'tiggerlilyzをコピーしました！')">tiggerlilyz をコピー</button>
-      <button onclick="copyText('sillyland', 'sillylandをコピーしました！')">sillyland をコピー</button>
-      <button onclick="copyText('cyumo36', 'cyumo36をコピーしました！')">cyumo36 をコピー</button>
-      <button onclick="copyText('nasecha215', 'nasecha215をコピーしました！')">nasecha215 をコピー</button>
-      <button onclick="copyText('buriburiburiiii', 'buriburiburiiiiをコピーしました！')">buriburiburiiii をコピー</button>
-      <button onclick="copyText('DKBSpain', 'DKBSpainをコピーしました！')">DKBSpain をコピー</button>
-      <button onclick="copyText('bbxdkb', 'bbxdkbをコピーしました！')">bbxdkb をコピー</button>
-
-
+    <section class="section" data-lang="ja">
+      <h2>コピー用：申請内容</h2>
+      <div class="copy-item">
+        <div><div class="label">Artist / Channel Name</div><div class="value">DKB</div></div>
+        <button class="copy-btn" onclick="copyText(this, 'DKB')">コピー</button>
+      </div>
+      <div class="copy-item">
+        <div><div class="label">Channel Request Reason</div><div class="value">We would like to request an official fandom channel for DKB so BB can gather, stream DKB's music together, and support the artist on Stationhead.</div></div>
+        <button class="copy-btn" onclick="copyText(this, `We would like to request an official fandom channel for DKB so BB can gather, stream DKB's music together, and support the artist on Stationhead.`)">コピー</button>
+      </div>
+      <div class="copy-item">
+        <div><div class="label">Official Artist Link</div><div class="value">https://x.com/DKB_BRAVE</div></div>
+        <button class="copy-btn" onclick="copyText(this, 'https://x.com/DKB_BRAVE')">コピー</button>
+      </div>
     </section>
 
-    <footer>
-      Made for BBs to support DKB 🩷
-    </footer>
-  </div>
+    <section class="section" data-lang="en">
+      <h2>Copy items for the request</h2>
+      <div class="copy-item">
+        <div><div class="label">Artist / Channel Name</div><div class="value">DKB</div></div>
+        <button class="copy-btn" onclick="copyText(this, 'DKB')">Copy</button>
+      </div>
+      <div class="copy-item">
+        <div><div class="label">Channel Request Reason</div><div class="value">We would like to request an official fandom channel for DKB so BB can gather, stream DKB's music together, and support the artist on Stationhead.</div></div>
+        <button class="copy-btn" onclick="copyText(this, `We would like to request an official fandom channel for DKB so BB can gather, stream DKB's music together, and support the artist on Stationhead.`)">Copy</button>
+      </div>
+      <div class="copy-item">
+        <div><div class="label">Official Artist Link</div><div class="value">https://x.com/DKB_BRAVE</div></div>
+        <button class="copy-btn" onclick="copyText(this, 'https://x.com/DKB_BRAVE')">Copy</button>
+      </div>
+    </section>
+
+    <section class="section" data-lang="ja">
+      <h2>stations一覧：1つずつコピー</h2>
+      <div class="accounts-grid" id="accountsJa"></div>
+    </section>
+
+    <section class="section" data-lang="en">
+      <h2>Station accounts: copy one by one</h2>
+      <div class="accounts-grid" id="accountsEn"></div>
+    </section>
+  </main>
+
+  <footer>Made with love for BB ♡</footer>
 
   <script>
-    const whyText = `We want to create a central hub for BBs to support DKB more effectively. Currently, several fan stations are operating individually across the globe, but a custom channel will allow us to unite our global fandom and organize 24/7 streaming parties.
-Our goal is to boost DKB's presence on digital charts like Spotify and Apple Music by providing a seamless, round-the-clock listening experience for all fans.
-The DKB fandom is known as BB. Our logo typically features bold, white Gothic-style text set on a pink（HEX color code: #f5a6bf ）background.`;
+    const accounts = [
+      'dkbstreaming',
+      'cheljpdkb',
+      'kamariharry',
+      'tiggerlilyz',
+      'sillyland',
+      'cyumo36',
+      'nasecha215',
+      'buriburiburiiii',
+      'DKBSpain',
+      'bbxdkb'
+    ];
 
-    const playlistLink = `https://open.spotify.com/playlist/2zLywSPYqGBvmuJ3zT3oG5?si=5cb6cdbce1db4904`;
-
-    const stationsText = `dkbstreaming
-cheljpdkb
-kamariharry
-tiggerlilyz
-sillyland
-cyumo36
-nasecha215
-buriburiburiiii
-DKBSpain
-bbxdkb`;
-
-    function showNotice(message) {
-      const notice = document.getElementById('notice');
-      notice.textContent = message;
-      notice.style.display = 'block';
-      setTimeout(() => {
-        notice.style.display = 'none';
-      }, 1800);
+    function copyText(button, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = button.textContent;
+        button.textContent = document.documentElement.lang === 'ja' ? 'コピー済み' : 'Copied';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = original;
+          button.classList.remove('copied');
+        }, 1300);
+      }).catch(() => {
+        alert(document.documentElement.lang === 'ja' ? 'コピーできませんでした。長押ししてコピーしてください。' : 'Could not copy. Please long-press and copy manually.');
+      });
     }
 
-    async function copyText(text, message) {
-      try {
-        await navigator.clipboard.writeText(text);
-        showNotice(message);
-      } catch (err) {
-        fallbackCopy(text);
-        showNotice(message);
-      }
-    }
-      copyText(value, message);
+    function renderAccounts() {
+      const ja = document.getElementById('accountsJa');
+      const en = document.getElementById('accountsEn');
+      accounts.forEach(name => {
+        ja.insertAdjacentHTML('beforeend', `
+          <div class="account-card">
+            <span class="account-name">${name}</span>
+            <button class="copy-btn" onclick="copyText(this, '${name}')">コピー</button>
+          </div>
+        `);
+        en.insertAdjacentHTML('beforeend', `
+          <div class="account-card">
+            <span class="account-name">${name}</span>
+            <button class="copy-btn" onclick="copyText(this, '${name}')">Copy</button>
+          </div>
+        `);
+      });
     }
 
-    function fallbackCopy(text) {
-      const temp = document.createElement('textarea');
-      temp.value = text;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.toggle('show', el.getAttribute('data-lang') === lang);
+      });
+      document.getElementById('jaBtn').classList.toggle('active', lang === 'ja');
+      document.getElementById('enBtn').classList.toggle('active', lang === 'en');
+      document.getElementById('topSubtitle').textContent = lang === 'ja'
+        ? '申請フォームに貼り付ける内容をワンタップでコピーできます。'
+        : 'Copy and paste the request details into the Stationhead form with one tap.';
     }
+
+    renderAccounts();
+    setLang('ja');
   </script>
 </body>
 </html>
