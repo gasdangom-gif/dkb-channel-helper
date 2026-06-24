@@ -165,24 +165,13 @@
 
     <section class="card">
       <h2>使い方</h2>
-      <p><span class="step">①</span> 自分のStationhead HandleとEmailをコピー</p>
-      <p><span class="step">②</span> Request Channelを開く</p>
-      <p><span class="step">③</span> 下のボタンで必要項目をコピーして貼り付け</p>
-      <p class="small">※ Stationhead HandleとEmailはご自身のものを入力してください。</p>
+      <p><span class="step">①</span> Request Channelを開く</p>
+      <p><span class="step">②</span> 下のボタンで必要項目をコピーして貼り付け</p>
+      <p><span class="step">③</span> Stations一覧は1人ずつコピーして、フォームで「＋Add」を押してください。</p>
+      <p class="small">※ Stationhead HandleとEmailはフォーム上でご自身のものを入力してください。</p>
     </section>
 
-    <section class="card">
-      <h2>自分の情報</h2>
-      <label for="handle">Stationhead Handle</label>
-      <input id="handle" placeholder="@なしでもOK 例：cheljpdkb" />
-      <button onclick="copyInput('handle', 'Handleをコピーしました！')">Handleをコピー</button>
-
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="your@email.com" />
-      <button onclick="copyInput('email', 'Emailをコピーしました！')">Emailをコピー</button>
-
-      <div id="notice" class="notice"></div>
-    </section>
+    
 
     <section class="card">
       <h2>申請ページ</h2>
@@ -195,35 +184,32 @@
     <section class="card">
       <h2>コピー用項目</h2>
 
-      <button onclick="copyText('BB', 'Fandom「BB」をコピーしました！')">2. Fandomをコピー</button>
+      <button onclick="copyText('BB', 'Fandom「BB」をコピーしました！')">1. Fandomをコピー</button>
 
-      <button onclick="copyText('DKB', 'Artist or Topic「DKB」をコピーしました！')">4. Artist or Topicをコピー</button>
+      <button onclick="copyText('DKB', 'Artist or Topic「DKB」をコピーしました！')">2. Artist or Topicをコピー</button>
 
-      <button onclick="copyText(whyText, 'Whyの文章をコピーしました！')">5. Whyをコピー</button>
+      <button onclick="copyText(whyText, 'Whyの文章をコピーしました！')">3. Whyをコピー</button>
       <textarea readonly>We want to create a central hub for BBs to support DKB more effectively. Currently, several fan stations are operating individually across the globe, but a custom channel will allow us to unite our global fandom and organize 24/7 streaming parties.
 Our goal is to boost DKB's presence on digital charts like Spotify and Apple Music by providing a seamless, round-the-clock listening experience for all fans.
 The DKB fandom is known as BB. Our logo typically features bold, white Gothic-style text set on a pink（HEX color code: #f5a6bf ）background.</textarea>
 
-      <button onclick="copyText('R: 245\nG: 166\nB: 191\nHEX: #f5a6bf', 'カラー情報をコピーしました！')">
-        6. カラー情報をコピー
-      </button>
-      <p><span class="color-chip"></span>R: 245 / G: 166 / B: 191 / HEX: #f5a6bf</p>
 
-      <button onclick="copyText(playlistLink, 'Spotify Playlist Linkをコピーしました！')">7. Playlist Linkをコピー</button>
+      <button onclick="copyText(playlistLink, 'Spotify Playlist Linkをコピーしました！')">4. Playlist Linkをコピー</button>
       <textarea readonly>https://open.spotify.com/playlist/2zLywSPYqGBvmuJ3zT3oG5?si=5cb6cdbce1db4904</textarea>
+      <h3>5. Stations一覧</h3>
+      <p class="small">※1人ずつコピーして、フォームで「＋Add」を押してください。</p>
+      <button onclick="copyText('dkbstreaming', 'dkbstreamingをコピーしました！')">dkbstreaming をコピー</button>
+      <button onclick="copyText('cheljpdkb', 'cheljpdkbをコピーしました！')">cheljpdkb をコピー</button>
+      <button onclick="copyText('kamariharry', 'kamariharryをコピーしました！')">kamariharry をコピー</button>
+      <button onclick="copyText('tiggerlilyz', 'tiggerlilyzをコピーしました！')">tiggerlilyz をコピー</button>
+      <button onclick="copyText('sillyland', 'sillylandをコピーしました！')">sillyland をコピー</button>
+      <button onclick="copyText('cyumo36', 'cyumo36をコピーしました！')">cyumo36 をコピー</button>
+      <button onclick="copyText('nasecha215', 'nasecha215をコピーしました！')">nasecha215 をコピー</button>
+      <button onclick="copyText('buriburiburiiii', 'buriburiburiiiiをコピーしました！')">buriburiburiiii をコピー</button>
+      <button onclick="copyText('DKBSpain', 'DKBSpainをコピーしました！')">DKBSpain をコピー</button>
+      <button onclick="copyText('bbxdkb', 'bbxdkbをコピーしました！')">bbxdkb をコピー</button>
 
-      <button onclick="copyText(stationsText, 'Stations一覧をコピーしました！')">8. Stations一覧をコピー</button>
-      <p class="small">※フォームでは1人ずつ入力して「＋Add」を押してください。</p>
-      <textarea readonly>dkbstreaming
-cheljpdkb
-kamariharry
-tiggerlilyz
-sillyland
-cyumo36
-nasecha215
-buriburiburiiii
-DKBSpain
-bbxdkb</textarea>
+
     </section>
 
     <footer>
@@ -267,13 +253,6 @@ bbxdkb`;
         showNotice(message);
       }
     }
-
-    function copyInput(id, message) {
-      const value = document.getElementById(id).value.trim();
-      if (!value) {
-        showNotice('先に入力してください');
-        return;
-      }
       copyText(value, message);
     }
 
